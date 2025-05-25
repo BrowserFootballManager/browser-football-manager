@@ -1,0 +1,1089 @@
+/* Genel Stiller */
+:root {
+    --primary-color: #1a56db; /* Koyu Mavi - Daha canlı */
+    --secondary-color: #3b82f6; /* Orta Mavi */
+    --text-color: #2c3e50; /* Daha koyu gri */
+    --background-color: #eef2f7; /* Açık gri - hafif mavi tonlu */
+    --card-background: #ffffff;
+    --border-color: #d1d5db; /* Daha yumuşak gri */
+    --hover-color: #1c4ed8; /* Primary rengin koyusu */
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b; /* Yeni: Sarımsı turuncu */
+    --info-color: #3b82f6; /* Yeni: Orta Mavi */
+    --text-color-light: #6b7280; /* Daha modern açık gri */
+    --gradient-start: #e0e7ff; /* Yeni: Arka plan gradyan başlangıcı */
+    --gradient-end: #c3dafe;   /* Yeni: Arka plan gradyan bitişi */
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Yeni: Daha belirgin gölge */
+    --border-radius: 8px; /* Yeni: Yuvarlak köşeler */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end)); /* Gradyan arka plan */
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex; /* Flexbox ile tüm içeriği ortala */
+    justify-content: center;
+    align-items: flex-start; /* Üstten başla */
+    min-height: 100vh; /* Minimum tam ekran yüksekliği */
+    box-sizing: border-box; /* Padding ve border'ı genişliğe dahil et */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px; /* Maksimum genişlik */
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden; /* İçerik taşmasını engelle */
+    margin: 20px; /* Kenarlardan boşluk bırak */
+    min-height: calc(100vh - 40px); /* Ekran yüksekliğine göre ayarla */
+}
+
+/* Sidebar Stilleri */
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Küçülmesini engelle */
+}
+
+.sidebar .logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.sidebar .logo i {
+    font-size: 1.5em;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-item {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-item:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.nav-item.active {
+    background-color: var(--secondary-color);
+    font-weight: 600;
+    box-shadow: var(--shadow);
+}
+
+/* Main Content Stilleri */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: var(--background-color);
+    overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu */
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 2.2em;
+    color: var(--primary-color);
+}
+
+.header-info span {
+    margin-left: 20px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-color-light);
+}
+
+.content-section {
+    display: none; /* Varsayılan olarak gizli */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.content-section.active {
+    display: block; /* Aktif olanı göster */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 2em;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: var(--text-color);
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card p {
+    margin-bottom: 8px;
+    font-size: 1.05em;
+}
+
+/* Button Stilleri */
+.button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.button-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.button-primary:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.button-secondary {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.button-secondary:hover {
+    background-color: #c0c7d0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button-success {
+    background-color: var(--success-color);
+    color: #fff;
+}
+
+.button-success:hover {
+    background-color: #0e9f72;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.button-danger {
+    background-color: var(--danger-color);
+    color: #fff;
+}
+
+.button-danger:hover {
+    background-color: #d13939;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Küçük butonlar (Editördeki sil butonları için) */
+.button-small {
+    padding: 6px 10px;
+    font-size: 0.8em;
+    margin-top: 0;
+}
+
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Table Stilleri */
+.table-responsive {
+    overflow-x: auto; /* Küçük ekranlarda yatay kaydırma */
+}
+
+.league-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Köşelerin yuvarlak olması için */
+    box-shadow: var(--shadow);
+}
+
+.league-table th, .league-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.league-table th {
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.league-table tbody tr:nth-child(even) {
+    background-color: #f8faff; /* Hafif çizgili görünüm */
+}
+
+.league-table tbody tr:hover {
+    background-color: #e0e7ff; /* Hover efekti */
+    cursor: pointer;
+}
+
+.league-table .team-logo-small {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+    object-fit: cover;
+}
+
+/* Benim takımım için özel satır stili */
+.my-team-row {
+    background-color: var(--primary-color) !important;
+    color: #fff;
+    font-weight: 700;
+}
+
+.my-team-row td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Maç Sonuçları */
+.match-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.match-week-section {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.match-week-section h3 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+}
+
+.match-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.match-result-item:last-child {
+    border-bottom: none;
+}
+
+.match-result-item .team-name {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+}
+
+.match-result-item .score {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Takım Yönetimi / Oyuncu Kartları */
+.team-management-header {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.team-management-header h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.player-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.player-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+.player-card:hover {
+    transform: translateY(-3px);
+}
+
+.player-card .player-info h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.player-card .player-info p {
+    margin: 5px 0;
+    font-size: 0.95em;
+    color: var(--text-color-light);
+}
+
+.player-card .player-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+.player-card .player-actions .button {
+    margin-top: 0; /* Butonların kendi margin-top'ını sıfırla */
+    flex-grow: 1; /* Butonların eşit genişlikte olmasını sağla */
+}
+
+/* Transfer Pazarı Filtreleri */
+.transfer-filters {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap; /* Küçük ekranlarda alt alta geçsin */
+    gap: 20px;
+    align-items: center;
+}
+
+.transfer-filters .form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Eşit genişlikte dağıl */
+    min-width: 200px; /* Minimum genişlik */
+}
+
+.transfer-filters label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.2);
+}
+
+.form-control-range {
+    width: 100%;
+    -webkit-appearance: none; /* Varsayılan stilini kaldır */
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+.form-control-range:hover {
+    opacity: 1;
+}
+
+.form-control-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.form-control-range::-webkit-slider-thumb:hover {
+    background: var(--hover-color);
+}
+
+.transfer-filters span {
+    text-align: center;
+    margin-top: 5px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Finans Sekmesi */
+.finance-summary {
+    text-align: center;
+}
+
+.finance-summary h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.finance-summary p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.finance-summary span {
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+/* Haber Akışı */
+.news-feed-dashboard {
+    max-height: 250px; /* Dashboard'daki haber akışı için yükseklik sınırı */
+    overflow-y: auto;
+    padding-right: 10px; /* Kaydırma çubuğu için boşluk */
+}
+
+.news-feed-full {
+    max-height: 600px; /* Tam haber akışı için daha fazla yükseklik */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.news-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    line-height: 1.4;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.news-item:last-child {
+    margin-bottom: 0;
+}
+
+.news-item strong {
+    color: var(--primary-color);
+}
+
+/* Modallar */
+.modal {
+    display: none; /* Varsayılan olarak gizli */
+    position: fixed; /* Sabit konum */
+    z-index: 1000; /* Diğer her şeyin üstünde */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* İçerik taşarsa kaydırma */
+    background-color: rgba(0, 0, 0, 0.6); /* Yarı saydam siyah arka plan */
+    justify-content: center; /* Yatayda ortala */
+    align-items: center; /* Dikeyde ortala */
+    animation: fadeInModal 0.3s ease-out;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    margin: auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 90%;
+    max-width: 600px; /* Maksimum genişlik */
+    position: relative;
+    animation: slideInModal 0.4s ease-out;
+}
+
+@keyframes slideInModal {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-button {
+    color: var(--text-color-light);
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--danger-color);
+    text-decoration: none;
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    font-size: 2em;
+}
+
+.modal-section {
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.modal-section h3 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.player-edit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 300px; /* Oyuncu listesi için kaydırma */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.team-editor-item {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 3 sütunlu düzen */
+    gap: 10px;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.team-editor-item label {
+    margin-bottom: 0; /* Grid içinde label'ların alt boşluğunu sıfırla */
+}
+
+.team-editor-item input[type="text"],
+.team-editor-item input[type="number"] {
+    margin-top: 0; /* Inputların üst boşluğunu sıfırla */
+}
+
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Mesaj Kutusu Stilleri */
+.message-box {
+    display: none; /* Varsayılan olarak gizli */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    max-width: 350px;
+    z-index: 1001; /* Modalların üstünde */
+    animation: slideInFromRight 0.5s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.message-box h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.message-box p {
+    margin: 0;
+    font-size: 1em;
+}
+
+.message-box-info {
+    border-left: 5px solid var(--info-color);
+}
+.message-box-info h3 { color: var(--info-color); }
+
+.message-box-success {
+    border-left: 5px solid var(--success-color);
+}
+.message-box-success h3 { color: var(--success-color); }
+
+.message-box-warning {
+    border-left: 5px solid var(--warning-color);
+}
+.message-box-warning h3 { color: var(--warning-color); }
+
+.message-box-danger {
+    border-left: 5px solid var(--danger-color);
+}
+.message-box-danger h3 { color: var(--danger-color); }
+
+
+/* Bilgi Mesajları */
+.info-message {
+    text-align: center;
+    color: var(--text-color-light);
+    font-style: italic;
+    padding: 15px;
+    background-color: #f0f4f8;
+    border-radius: var(--border-radius);
+    border: 1px dashed var(--border-color);
+    margin-top: 20px;
+}
+
+/* Oyun Editörü Stilleri */
+.editor-section {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.editor-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.editor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.editor-table th, .editor-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95em;
+    vertical-align: middle;
+}
+
+.editor-table th {
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.editor-table tbody tr:nth-child(even) {
+    background-color: #f8faff;
+}
+
+.editor-table tbody tr:hover {
+    background-color: #e0e7ff;
+}
+
+.editor-input {
+    width: calc(100% - 10px); /* Padding'i hesaba kat */
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.9em;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.editor-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.1);
+}
+
+.editor-player-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: var(--background-color);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.editor-player-filters .form-group {
+    flex: 1;
+    min-width: 180px;
+    margin-bottom: 0;
+}
+
+.editor-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Geçmiş Sezonlar Stilleri */
+.past-season-card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    margin-bottom: 25px;
+    transition: transform 0.3s ease;
+}
+
+.past-season-card:hover {
+    transform: translateY(-3px);
+}
+
+.past-season-card h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.past-season-card p {
+    margin-bottom: 8px;
+    font-size: 1.05em;
+}
+
+.past-season-card .champion-info {
+    font-weight: 700;
+    color: var(--success-color);
+    font-size: 1.15em;
+    margin-bottom: 15px;
+}
+
+.past-season-card .league-table {
+    margin-top: 15px; /* Üstteki karttan boşluk */
+}
+
+/* Geçmiş sezon tablosunda şampiyonu vurgulama */
+.champion-row {
+    background-color: var(--success-color) !important;
+    color: #fff !important;
+    font-weight: 700;
+}
+
+.champion-row td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+
+/* Responsive Düzenlemeler */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar .logo {
+        margin-bottom: 0;
+        font-size: 1.5em;
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .nav-item {
+        padding: 8px 12px;
+        font-size: 0.9em;
+        gap: 5px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .header-info span {
+        margin-left: 0;
+        margin-right: 15px;
+        font-size: 1em;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Tek sütun */
+    }
+
+    .player-cards-grid {
+        grid-template-columns: 1fr; /* Tek sütun */
+    }
+
+    .match-result-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .match-result-item .score {
+        min-width: unset;
+        width: auto;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .close-button {
+        font-size: 28px;
+        top: 10px;
+        right: 15px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.8em;
+    }
+
+    .modal-section {
+        padding: 15px;
+    }
+
+    .modal-section h3 {
+        font-size: 1.2em;
+    }
+
+    .team-editor-item {
+        flex-direction: column;
+        align-items: flex-start;
+        grid-template-columns: 1fr; /* Mobil görünümde tek sütun */
+    }
+
+    .team-editor-item input[type="text"],
+    .team-editor-item input[type="number"] {
+        margin-top: 5px;
+    }
+
+    .transfer-filters {
+        flex-direction: column;
+    }
+    .transfer-filters .form-group {
+        width: 100%; /* Tam genişlik */
+    }
+
+    /* Oyun Editörü Responsive */
+    .editor-table th, .editor-table td {
+        padding: 8px 10px;
+        font-size: 0.85em;
+    }
+    .editor-input {
+        padding: 4px 6px;
+        font-size: 0.8em;
+    }
+    .editor-player-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .editor-player-filters .form-group {
+        width: 100%;
+        min-width: unset;
+    }
+    .editor-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .editor-actions .button {
+        width: 100%;
+    }
+}
+
+/* Ek küçük ekran düzenlemeleri */
+@media (max-width: 600px) {
+    .main-header .header-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .header-info span {
+        margin-right: 0;
+    }
+
+    .sidebar .logo {
+        font-size: 1.2em;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-item {
+        font-size: 0.85em;
+        padding: 6px 10px;
+    }
+
+    .button {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-actions .button {
+        width: 100%;
+    }
+
+    .message-box {
+        bottom: 10px;
+        right: 10px;
+        max-width: calc(100% - 40px);
+    }
+}

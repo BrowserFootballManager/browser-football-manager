@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gelişmiş Futbol Ligi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fas fa-futbol"></i> GFL
+      </div>
+      <nav class="nav-menu">
+        <button class="nav-item active" data-target="dashboard"><i class="fas fa-home"></i> Dashboard</button>
+        <button class="nav-item" data-target="league-table"><i class="fas fa-trophy"></i> Lig Tablosu</button>
+        <button class="nav-item" data-target="match-results"><i class="fas fa-calendar-alt"></i> Maç Sonuçları</button>
+        <button class="nav-item" data-target="team-management"><i class="fas fa-users"></i> Takım Yönetimi</button>
+        <button class="nav-item" data-target="transfer-market"><i class="fas fa-exchange-alt"></i> Transfer Pazarı</button>
+        <button class="nav-item" data-target="finances"><i class="fas fa-wallet"></i> Finans</button>
+        <button class="nav-item" data-target="news-feed"><i class="fas fa-newspaper"></i> Haber Akışı</button>
+        <button class="nav-item" data-target="game-editor"><i class="fas fa-cogs"></i> Oyun Editörü</button>
+        <button class="nav-item" data-target="past-seasons"><i class="fas fa-history"></i> Geçmiş Sezonlar</button> <button class="nav-item" id="reset-game-button"><i class="fas fa-redo"></i> Yeni Oyun Başlat</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Gelişmiş Futbol Ligi</h1>
+        <div class="header-info">
+          <span>Hafta: <span id="current-week">1</span> / <span id="total-weeks">34</span></span>
+          <span>Takımım: <span id="my-team-name">Kartalspor</span></span>
+          <span>Bütçe: <span id="my-team-budget">₺5,000,000</span></span>
+          <span>TD: <span id="coach-name-display"></span></span> </div>
+      </header>
+
+      <section id="dashboard" class="content-section active">
+        <h2>Dashboard</h2>
+        <div class="dashboard-grid">
+          <div class="card dashboard-card">
+            <h3>Takım Bilgileri</h3>
+            <p id="dashboard-team-name">Kartalspor</p>
+            <p id="dashboard-team-power">Güç: 85</p>
+            <p id="dashboard-team-budget">Bütçe: ₺5,000,000</p>
+            <p id="dashboard-team-record">Kayıt: 0 G / 0 B / 0 M</p>
+            <p id="dashboard-team-rank">Sıralama: 1.</p>
+            <p id="dashboard-player-info">Oyuncu Sayısı: 15 | Ortalama Güç: 85.0</p>
+            <button class="button button-primary" id="edit-my-team-button"><i class="fas fa-edit"></i> Takımımı Düzenle</button>
+          </div>
+          <div class="card dashboard-card">
+            <h3>Lig Durumu</h3>
+            <canvas id="teamPowerChart"></canvas>
+          </div>
+          <div class="card dashboard-card">
+            <h3>Son Maç Sonucu</h3>
+            <p id="dashboard-last-match">Henüz maç oynanmadı.</p>
+            <button class="button button-success" id="simulate-week-button"><i class="fas fa-play"></i> Haftayı Simüle Et</button>
+          </div>
+          <div class="card dashboard-card">
+            <h3>Haberler</h3>
+            <div id="news-feed-list" class="news-feed-dashboard">
+              <p class="info-message">Yeni haber yok.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="league-table" class="content-section">
+        <h2>Lig Tablosu</h2>
+        <div class="table-responsive">
+          <table class="league-table">
+            <thead>
+              <tr>
+                <th>Sıra</th>
+                <th>Takım</th>
+                <th>O</th>
+                <th>G</th>
+                <th>B</th>
+                <th>M</th>
+                <th>A</th>
+                <th>Y</th>
+                <th>Av.</th>
+                <th>P</th>
+                <th>Güç</th>
+              </tr>
+            </thead>
+            <tbody id="league-table-body">
+              </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="match-results" class="content-section">
+        <h2>Maç Sonuçları</h2>
+        <div id="match-results-container" class="match-results-list">
+          <p class="info-message">Henüz maç oynanmadı.</p>
+          </div>
+      </section>
+
+      <section id="team-management" class="content-section">
+        <h2>Takım Yönetimi</h2>
+        <div class="team-management-header">
+          <h3 id="my-team-name-display">Kartalspor</h3>
+          <p id="my-team-power-display">Takım Gücü: 85</p>
+          <p id="my-team-budget-display">Bütçe: ₺5,000,000</p>
+        </div>
+        <div id="my-team-player-list" class="player-cards-grid">
+          </div>
+      </section>
+
+      <section id="transfer-market" class="content-section">
+        <h2>Transfer Pazarı</h2>
+        <div class="transfer-filters">
+          <div class="form-group">
+            <label for="transfer-power-filter">Minimum Güç:</label>
+            <input type="range" id="transfer-power-filter" min="60" max="99" value="60" class="form-control-range">
+            <span id="transfer-power-display">60</span>
+          </div>
+          <div class="form-group">
+            <label for="transfer-team-filter">Takım:</label>
+            <select id="transfer-team-filter" class="form-control">
+              <option value="all">Tüm Takımlar</option>
+              </select>
+          </div>
+        </div>
+        <div id="transfer-list" class="player-cards-grid">
+          <p class="info-message">Transfer pazarında oyuncu bulunmuyor.</p>
+          </div>
+      </section>
+
+      <section id="finances" class="content-section">
+        <h2>Finans</h2>
+        <div class="finance-summary card">
+          <h3>Bütçe Özeti</h3>
+          <p>Mevcut Bütçe: <span id="current-budget">₺5,000,000</span></p>
+          <p>Toplam Aylık Maaş Gideri: <span id="total-monthly-salary">₺0</span></p>
+          <p>Haftalık Maaş Maliyeti: <span id="weekly-salary-cost">₺0</span></p>
+        </div>
+        </section>
+
+      <section id="news-feed" class="content-section">
+        <h2>Haber Akışı</h2>
+        <div id="news-feed-list" class="news-feed-full">
+          <p class="info-message">Yeni haber yok.</p>
+          </div>
+      </section>
+
+      <section id="game-editor" class="content-section">
+        <h2>Oyun Editörü</h2>
+        <div class="editor-section">
+          <h3>Takımları Düzenle</h3>
+          <div class="table-responsive">
+            <table class="editor-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Adı</th>
+                  <th>Güç</th>
+                  <th>Bütçe</th>
+                  <th>Logo URL</th>
+                  <th>Eylemler</th>
+                </tr>
+              </thead>
+              <tbody id="editor-teams-body">
+                </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="editor-section mt-4">
+          <h3>Oyuncuları Düzenle</h3>
+          <div class="editor-player-filters">
+            <div class="form-group">
+              <label for="editor-team-filter">Takım:</label>
+              <select id="editor-team-filter" class="form-control">
+                <option value="all">Tüm Takımlar</option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label for="editor-player-name-filter">Oyuncu Adı:</label>
+              <input type="text" id="editor-player-name-filter" class="form-control" placeholder="Oyuncu adı ara...">
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="editor-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Adı</th>
+                  <th>Takım</th>
+                  <th>Pozisyon</th>
+                  <th>Güç</th>
+                  <th>Maaş</th>
+                  <th>Değer</th>
+                  <th>Eylemler</th>
+                </tr>
+              </thead>
+              <tbody id="editor-players-body">
+                </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="editor-actions">
+          <button class="button button-primary" id="save-editor-changes-button"><i class="fas fa-save"></i> Tüm Değişiklikleri Kaydet</button>
+          <button class="button button-secondary" id="cancel-editor-changes-button"><i class="fas fa-times"></i> İptal</button>
+        </div>
+      </section>
+
+      <section id="past-seasons" class="content-section">
+        <h2>Geçmiş Sezonlar</h2>
+        <div id="past-seasons-container">
+          <p class="info-message">Henüz tamamlanmış bir sezon yok.</p>
+          </div>
+      </section>
+      </main>
+  </div>
+
+  <div id="start-game-modal" class="modal">
+    <div class="modal-content">
+      <h2>Yeni Oyun Başlat</h2>
+      <div class="modal-section">
+        <div class="form-group">
+          <label for="coachNameInput">Teknik Direktör Adınız:</label>
+          <input type="text" id="coachNameInput" class="form-control" placeholder="Adınızı girin..." required>
+        </div>
+        <div class="form-group">
+          <label for="myTeamSelect">Takımınızı Seçin:</label>
+          <select id="myTeamSelect" class="form-control">
+            </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="button button-success" id="start-new-game-button"><i class="fas fa-play"></i> Oyunu Başlat</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="team-editor-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Takımımı Düzenle</h2>
+      <div class="modal-section">
+        <h3>Takım Bilgileri</h3>
+        <div class="form-group">
+          <label for="editTeamName">Takım Adı:</label>
+          <input type="text" id="editTeamName" class="form-control">
+        </div>
+      </div>
+      <div class="modal-section">
+        <h3>Oyuncular</h3>
+        <div id="team-editor-player-list" class="player-edit-list">
+          </div>
+      </div>
+      <div class="modal-actions">
+        <button class="button button-primary" id="save-team-changes-button">Değişiklikleri Kaydet</button>
+        <button class="button button-secondary" onclick="Game.closeTeamEditorModal()">İptal</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="player-details-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Oyuncu Detayları</h2>
+      <input type="hidden" id="editPlayerId">
+      <div class="form-group">
+        <label for="editPlayerName">Adı:</label>
+        <input type="text" id="editPlayerName" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="editPlayerPosition">Pozisyon:</label>
+        <select id="editPlayerPosition" class="form-control">
+          <option value="GK">Kaleci</option>
+          <option value="DEF">Defans</option>
+          <option value="MID">Orta Saha</option>
+          <option value="FWD">Forvet</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="editPlayerPower">Güç:</label>
+        <input type="number" id="editPlayerPower" min="60" max="99" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="editPlayerSalary">Maaş:</label>
+        <input type="number" id="editPlayerSalary" min="10000" class="form-control">
+      </div>
+      <div class="modal-actions">
+        <button class="button button-primary" id="save-player-changes-button">Değişiklikleri Kaydet</button>
+        <button class="button button-secondary" onclick="Game.closeEditPlayerModal()">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="message-box" class="message-box">
+    <div class="message-content">
+      <h3 id="message-title">Başlık</h3>
+      <p id="message-text">Mesaj metni buraya gelecek.</p>
+    </div>
+  </div>
+
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2 id="confirm-modal-title">Onay</h2>
+      <p id="confirm-modal-text">Emin misiniz?</p>
+      <div class="modal-actions">
+        <button class="button button-danger" id="confirm-yes-button">Evet</button>
+        <button class="button button-secondary" id="confirm-no-button">Hayır</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
