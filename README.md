@@ -1,6 +1,6 @@
 # browser-football-manager
 Tarayıcı Tabanlı Futbol Menajerlik Oyunu
- Hello Reddit community!
+
 
 Today, I'm incredibly excited to share a personal project I've been passionately working on: Advanced Football League (GFL). This is a feature-rich, interactive football management and league simulation game that you can experience directly in your browser. GFL is more than just a game; it's a product of a learning and development journey, showcasing the power of modern web technologies in building dynamic applications.
 
